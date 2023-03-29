@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Koshevoi_3isModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Disciplina">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Disciplina" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Jurnal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_studenta" Type="int" />
+          <Property Name="id_disciplini" Type="int" />
+          <Property Name="id_ocenki" Type="int" />
+          <Property Name="data" Type="date" />
+        </EntityType>
+        <EntityType Name="Ocenki">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ocenka" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Familiya" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ima" Type="nvarchar" MaxLength="50" />
+          <Property Name="Otchestvo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Jurnal_Disciplina">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="0..1" />
+          <End Role="Jurnal" Type="Self.Jurnal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jurnal">
+              <PropertyRef Name="id_disciplini" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jurnal_Ocenki">
+          <End Role="Ocenki" Type="Self.Ocenki" Multiplicity="0..1" />
+          <End Role="Jurnal" Type="Self.Jurnal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ocenki">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jurnal">
+              <PropertyRef Name="id_ocenki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jurnal_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Jurnal" Type="Self.Jurnal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jurnal">
+              <PropertyRef Name="id_studenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Koshevoi_3isModelContainer">
+          <EntitySet Name="Disciplina" EntityType="Self.Disciplina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jurnal" EntityType="Self.Jurnal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ocenki" EntityType="Self.Ocenki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Jurnal_Disciplina" Association="Self.FK_Jurnal_Disciplina">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Jurnal" EntitySet="Jurnal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jurnal_Ocenki" Association="Self.FK_Jurnal_Ocenki">
+            <End Role="Ocenki" EntitySet="Ocenki" />
+            <End Role="Jurnal" EntitySet="Jurnal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jurnal_Student" Association="Self.FK_Jurnal_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Jurnal" EntitySet="Jurnal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Koshevoi_3isModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Disciplina">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Name_Disciplina" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Jurnal" Relationship="Self.FK_Jurnal_Disciplina" FromRole="Disciplina" ToRole="Jurnal" />
+        </EntityType>
+        <EntityType Name="Jurnal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_studenta" Type="Int32" />
+          <Property Name="id_disciplini" Type="Int32" />
+          <Property Name="id_ocenki" Type="Int32" />
+          <Property Name="data" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Disciplina" Relationship="Self.FK_Jurnal_Disciplina" FromRole="Jurnal" ToRole="Disciplina" />
+          <NavigationProperty Name="Ocenki" Relationship="Self.FK_Jurnal_Ocenki" FromRole="Jurnal" ToRole="Ocenki" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Jurnal_Student" FromRole="Jurnal" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Ocenki">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Ocenka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Jurnal" Relationship="Self.FK_Jurnal_Ocenki" FromRole="Ocenki" ToRole="Jurnal" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Familiya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ima" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Jurnal" Relationship="Self.FK_Jurnal_Student" FromRole="Student" ToRole="Jurnal" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Jurnal_Disciplina">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="0..1" />
+          <End Role="Jurnal" Type="Self.Jurnal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jurnal">
+              <PropertyRef Name="id_disciplini" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jurnal_Ocenki">
+          <End Role="Ocenki" Type="Self.Ocenki" Multiplicity="0..1" />
+          <End Role="Jurnal" Type="Self.Jurnal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ocenki">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jurnal">
+              <PropertyRef Name="id_ocenki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jurnal_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Jurnal" Type="Self.Jurnal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Jurnal">
+              <PropertyRef Name="id_studenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Koshevoi_3isEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Disciplina" EntityType="Self.Disciplina" />
+          <EntitySet Name="Jurnal" EntityType="Self.Jurnal" />
+          <EntitySet Name="Ocenki" EntityType="Self.Ocenki" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Jurnal_Disciplina" Association="Self.FK_Jurnal_Disciplina">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Jurnal" EntitySet="Jurnal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jurnal_Ocenki" Association="Self.FK_Jurnal_Ocenki">
+            <End Role="Ocenki" EntitySet="Ocenki" />
+            <End Role="Jurnal" EntitySet="Jurnal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jurnal_Student" Association="Self.FK_Jurnal_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Jurnal" EntitySet="Jurnal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Koshevoi_3isModelContainer" CdmEntityContainer="Koshevoi_3isEntities">
+          <EntitySetMapping Name="Disciplina">
+            <EntityTypeMapping TypeName="Koshevoi_3isModel.Disciplina">
+              <MappingFragment StoreEntitySet="Disciplina">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name_Disciplina" ColumnName="Name_Disciplina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jurnal">
+            <EntityTypeMapping TypeName="Koshevoi_3isModel.Jurnal">
+              <MappingFragment StoreEntitySet="Jurnal">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_studenta" ColumnName="id_studenta" />
+                <ScalarProperty Name="id_disciplini" ColumnName="id_disciplini" />
+                <ScalarProperty Name="id_ocenki" ColumnName="id_ocenki" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ocenki">
+            <EntityTypeMapping TypeName="Koshevoi_3isModel.Ocenki">
+              <MappingFragment StoreEntitySet="Ocenki">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Ocenka" ColumnName="Ocenka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="Koshevoi_3isModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Familiya" ColumnName="Familiya" />
+                <ScalarProperty Name="Ima" ColumnName="Ima" />
+                <ScalarProperty Name="Otchestvo" ColumnName="Otchestvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Koshevoi_3isModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

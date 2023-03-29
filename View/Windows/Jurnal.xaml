@@ -1,0 +1,99 @@
+﻿<Window x:Class="Koshevoi_Jurnal.View.Windows.Jurnal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Koshevoi_Jurnal.View.Windows"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" 
+TextElement.FontWeight="Regular" 
+TextElement.FontSize="13" 
+TextOptions.TextFormattingMode="Ideal" 
+TextOptions.TextRenderingMode="Auto" 
+Background="{DynamicResource MaterialDesignPaper}" 
+FontFamily="{DynamicResource MaterialDesignFont}" 
+        Title="Jurnal" WindowStartupLocation="CenterOwner"  Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBlock Text="Журнал" FontSize="50" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4">
+            <DataGrid IsReadOnly="True" Margin="5" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" Name="GridJurnal" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding Student.Familiya}"/>
+                    <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding Student.Ima}"/>
+                    <DataGridTextColumn Header="Отчество" Width="*" Binding="{Binding Student.Otchestvo}"/>
+                    <DataGridTextColumn Header="Дисциплина" Width="*" Binding="{Binding Disciplina.Name_Disciplina}"/>
+                    <DataGridTextColumn Header="Оценка" Width="*" Binding="{Binding Ocenki.Ocenka}"/>
+                    <DataGridTextColumn Header="Дата" Width="*" Binding="{Binding data}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Button FontSize="35" Height="100" Margin="0" Click="Button_Click">
+                <TextBlock TextWrapping="Wrap" Text="Добавить студента"/>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Button FontSize="35" Height="100" Click="Button_Click_1">
+                <TextBlock TextWrapping="Wrap" Text="Добавить дисциплину"/>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="2">
+            <Button FontSize="35" Height="100" Click="Button_Click_2">
+                <TextBlock TextWrapping="Wrap" Text="Добавить оценку"/>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="3">
+            <Button Content="Закрыть" Height="100" FontSize="35" Margin="20" Click="Button_Click_3"/>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.RowSpan="1">
+
+            <Grid Grid.Row="0">
+                <Label Content="Выберите студента" FontSize="20"/>
+                <ComboBox Name="CmbFam" VerticalAlignment="Center" FontSize="20"/>
+            </Grid>
+
+
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Label Content="Выберите дисциплину" FontSize="20"/>
+            <ComboBox Name="CmbDisc" VerticalAlignment="Center" FontSize="20"/>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="2">
+            <Label Content="Выберите оценку" FontSize="20"/>
+            <ComboBox Name="CmbOcen" VerticalAlignment="Center" FontSize="20"/>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Label Content="Выберите дату" FontSize="20"/>
+            <DatePicker Name="DtPick" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" FontSize="17"/>
+        </Grid>
+
+
+        <Button Content="Добавить" Grid.Row="5" Grid.Column="2" FontSize="20" Click="Button_Click_4"/>
+    </Grid>
+</Window>
